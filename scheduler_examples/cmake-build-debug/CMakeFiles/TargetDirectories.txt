@@ -1,0 +1,5 @@
+/home/aluno/Trabalho1/scheduler_examples/cmake-build-debug/CMakeFiles/scheduler.dir
+/home/aluno/Trabalho1/scheduler_examples/cmake-build-debug/CMakeFiles/app.dir
+/home/aluno/Trabalho1/scheduler_examples/cmake-build-debug/CMakeFiles/app-io.dir
+/home/aluno/Trabalho1/scheduler_examples/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/aluno/Trabalho1/scheduler_examples/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -11,9 +11,6 @@
 
 #include "msg.h"
 
-/*
- * Run like: ./app <name> <time_s>
- */
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         printf("Usage: %s <name> <time_s>\n", argv[0]);
@@ -26,20 +23,19 @@ int main(int argc, char *argv[]) {
     errno = 0;
     long val = strtol(argv[2], &endptr, 10);
     if (errno != 0) {
-        perror("strtol");  // conversion error (overflow, etc.)
+        perror("strtol");
         return 1;
     }
     if (*endptr != '\0') {
         fprintf(stderr, "Invalid number: %s\n", argv[2]);
         return 1;
     }
-    if (val < 0 || val > INT_MAX) {  // optional range check
+    if (val < 0 || val > INT_MAX) {
         fprintf(stderr, "Value out of range: %ld\n", val);
         return 1;
     }
     int32_t time_s = (int32_t) val;
 
-    // Setup socket for communication
     int sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (sockfd < 0) {
         perror("socket");
@@ -56,9 +52,6 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    // All in place to start simulating the app
-//    printf("Application %s started, will need the CPU for %d seconds\n", app_name, time_s);
-
     // Send RUN request
     pid_t pid = getpid();
     msg_t msg = {
@@ -73,7 +66,6 @@ int main(int argc, char *argv[]) {
     }
     DBG("Application %s (PID %d) sent RUN request for %d ms",
            app_name, pid, msg.time_ms);
-    // Wait for ACK and the internal simulation time
     if (read(sockfd, &msg, sizeof(msg_t)) != sizeof(msg_t)) {
         perror("read");
         close(sockfd);
@@ -84,9 +76,7 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    // Received ACK
     uint32_t start_time_ms = msg.time_ms;
-//    printf("Application %s (PID %d) started running at time %d ms\n", app_name, pid, start_time_ms);
 
     // Wait for the EXIT message
     if (read(sockfd, &msg, sizeof(msg_t)) != sizeof(msg_t)) {

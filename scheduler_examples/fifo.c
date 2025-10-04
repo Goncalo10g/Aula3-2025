@@ -33,7 +33,7 @@ void fifo_scheduler(uint32_t current_time_ms, queue_t *rq, pcb_t **cpu_task) {
             if (write((*cpu_task)->sockfd, &msg, sizeof(msg_t)) != sizeof(msg_t)) {
                 perror("write");
             }
-            // Application finished and can be removed (this is FIFO after all)
+            // Application finished and can be removed
             free((*cpu_task));
             (*cpu_task) = NULL;
         }

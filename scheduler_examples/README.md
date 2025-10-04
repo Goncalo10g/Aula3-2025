@@ -1,4 +1,4 @@
-# Scheduler Simulator
+[README.md](README.md)# Scheduler Simulator
 
 The objective of this project is to simulate various CPU scheduling algorithms and
 analyze their performance based on different metrics. The simulator allows users to
